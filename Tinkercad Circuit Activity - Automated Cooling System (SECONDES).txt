@@ -1,0 +1,110 @@
+//Ami Kristi M. Secondes BSIT 2B
+//Automated Coooling System Device that ables to control a 
+//cooling Fan. This device have 3 LED lights that signify 
+//Temperature Levels
+//Red - Hot/High temperature,
+//Green - Room temperature/ Medium Temparature
+//Yellow - Cold/ lower than room Temperature.
+//and a Buzzer that emits emergency Sound Signal if room 
+//temperature is below 27C or above 37C.
+
+#include <LiquidCrystal.h> 
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+float temp; 
+const int buzzer = 10;
+const int dcmotor = 6; 
+int red = 7;
+int green = 9;
+int blue = 8;
+
+void setup() 
+{
+  lcd.begin(16,2);  
+  Serial.begin(9600);
+  pinMode(A0, INPUT);
+  pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(blue, OUTPUT);
+  pinMode(buzzer, OUTPUT); 
+  pinMode(dcmotor, OUTPUT);  
+}
+
+void loop() 
+{ 
+  temp = analogRead(A0); 
+  temp =((temp*5)/1024); 
+  temp = (temp-0.5)*100; 
+  lcd.setCursor(3,0);
+  lcd.print("Automated");
+  lcd.setCursor(1,1);
+  lcd.print("Cooling System");
+  delay(100);
+  lcd.clear(); 
+  lcd.setCursor(2,0);
+  lcd.print("TEMPERATURE:"); 
+  lcd.setCursor(1,1);
+  lcd.print(temp);  
+  lcd.print(" Deg Cel");
+  delay(100);
+  lcd.clear();
+  Serial.print("TEMPERATURE:");
+  Serial.print(temp);
+  Serial.println(" Degree Celsius");
+  
+  if (temp >= 37) 
+  { 
+    lcd.clear();
+    analogWrite(red, 255);
+    analogWrite(green, 0);
+    analogWrite(blue, 0);
+    analogWrite(dcmotor, 255);
+    tone(buzzer, 1000);
+    delay(100); 
+    lcd.setCursor(0,0);
+    lcd.print("It's Hot Today"); 
+    lcd.setCursor(1,1);
+    lcd.print("Fan Speed: 100%"); 
+    delay(100);
+    lcd.clear();
+    Serial.print("It's Hot Today,"); 
+    Serial.println(" Fan Speed: 100%");
+  }
+  
+  if (temp > 27 && temp < 37) 
+  { 
+    analogWrite(red, 0);
+    analogWrite(green, 255);
+    analogWrite(blue, 0);
+    analogWrite(dcmotor, 128); 
+    noTone(buzzer);
+    delay(100); 
+    lcd.setCursor(0,0);
+    lcd.print("It's Warm Today"); 
+    lcd.setCursor(1,1);
+    lcd.print("Fan Speed: 50%"); 
+    delay(100);
+    lcd.clear(); 
+    Serial.print("It's Warm Today,"); 
+    Serial.println(" Fan Speed: 50%");  
+  }
+
+  if (temp <= 27) 
+  {  
+    analogWrite(red, 255);
+    analogWrite(green, 255);
+    analogWrite(blue, 0);
+    analogWrite(dcmotor, 0);
+    tone(buzzer, 1000);
+    delay(100); 
+    lcd.setCursor(0,0);
+    lcd.print("It's Cold Today"); 
+    lcd.setCursor(2,1);
+    lcd.print("Fan is: OFF"); 
+    delay(100);
+    lcd.clear();
+    Serial.print("It's Cold Today,"); 
+    Serial.println(" Fan is: OFF");
+  } 
+} 
+ 
