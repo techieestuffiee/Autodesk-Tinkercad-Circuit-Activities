@@ -15,8 +15,8 @@ float temp;
 const int buzzer = 10;
 const int dcmotor = 6; 
 int red = 7;
-int green = 9;
-int blue = 8;
+int green = 8;
+int yellow = 9;
 
 void setup() 
 {
@@ -25,7 +25,7 @@ void setup()
   pinMode(A0, INPUT);
   pinMode(red, OUTPUT);
   pinMode(green, OUTPUT);
-  pinMode(blue, OUTPUT);
+  pinMode(yellow, OUTPUT);
   pinMode(buzzer, OUTPUT); 
   pinMode(dcmotor, OUTPUT);  
 }
@@ -57,7 +57,7 @@ void loop()
     lcd.clear();
     analogWrite(red, 255);
     analogWrite(green, 0);
-    analogWrite(blue, 0);
+    analogWrite(yellow, 0);
     analogWrite(dcmotor, 255);
     tone(buzzer, 1000);
     delay(100); 
@@ -70,12 +70,11 @@ void loop()
     Serial.print("It's Hot Today,"); 
     Serial.println(" Fan Speed: 100%");
   }
-  
   if (temp > 27 && temp < 37) 
   { 
     analogWrite(red, 0);
     analogWrite(green, 255);
-    analogWrite(blue, 0);
+    analogWrite(yellow, 0);
     analogWrite(dcmotor, 128); 
     noTone(buzzer);
     delay(100); 
@@ -86,14 +85,14 @@ void loop()
     delay(100);
     lcd.clear(); 
     Serial.print("It's Warm Today,"); 
-    Serial.println(" Fan Speed: 50%");  
+    Serial.println(" Fan Speed: 50%");
+    
   }
-
   if (temp <= 27) 
   {  
-    analogWrite(red, 255);
-    analogWrite(green, 255);
-    analogWrite(blue, 0);
+    analogWrite(red, 0);
+    analogWrite(green, 0);
+    analogWrite(yellow, 255);
     analogWrite(dcmotor, 0);
     tone(buzzer, 1000);
     delay(100); 
@@ -107,4 +106,5 @@ void loop()
     Serial.println(" Fan is: OFF");
   } 
 } 
+ 
  
