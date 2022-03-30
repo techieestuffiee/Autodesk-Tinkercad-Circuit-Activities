@@ -1,0 +1,234 @@
+//LED LIGHT SHOW
+//Ami Kristi M. Secondes BSIT 2B
+
+void setup()
+{
+  Serial.begin (9600); //Prepares a communication channel between
+  //the Microcontroller and the Serial Bus
+  pinMode(2, OUTPUT);//pins setup
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+}
+ 
+void LedLightShow1()
+{
+  //Alternately turn on 11 led lights
+  int i = 0;
+  for (i = 1; i <= 7; i++) 
+  {
+  digitalWrite(2, HIGH);
+  delay(200);
+  digitalWrite(2, LOW);
+  
+  digitalWrite(3, HIGH);
+  delay(200);
+  digitalWrite(3, LOW);
+  
+  digitalWrite(4, HIGH);
+  delay(200);
+  digitalWrite(4, LOW);
+  
+  digitalWrite(5, HIGH);
+  delay(200);
+  digitalWrite(5, LOW);
+ 
+  digitalWrite(6, HIGH);
+  delay(200);
+  digitalWrite(6, LOW);
+  
+  digitalWrite(7, HIGH);
+  delay(200);
+  digitalWrite(7, LOW);
+ 
+  digitalWrite(8, HIGH);
+  delay(200);
+  digitalWrite(8, LOW);
+  
+  digitalWrite(9, HIGH);
+  delay(200);
+  digitalWrite(9, LOW);
+  
+  digitalWrite(10, HIGH);
+  delay(200);
+  digitalWrite(10, LOW);
+  
+  digitalWrite(11, HIGH);
+  delay(200);
+  digitalWrite(11, LOW);
+  
+  digitalWrite(12, HIGH);
+  delay(200);
+  digitalWrite(12, LOW);
+  
+  digitalWrite(2, HIGH);
+  delay(200);
+  digitalWrite(2, LOW);
+  
+  digitalWrite(8, HIGH);
+  delay(200);
+  digitalWrite(8, LOW);
+  
+  digitalWrite(3, HIGH);
+  delay(200);
+  digitalWrite(3, LOW);
+  
+  digitalWrite(9, HIGH);
+  delay(200);
+  digitalWrite(9, LOW);
+ 
+  digitalWrite(4, HIGH);
+  delay(200);
+  digitalWrite(4, LOW);
+  
+  digitalWrite(10, HIGH);
+  delay(200);
+  digitalWrite(10, LOW);
+ 
+  digitalWrite(5, HIGH);
+  delay(200);
+  digitalWrite(5, LOW);
+  
+  digitalWrite(11, HIGH);
+  delay(200);
+  digitalWrite(11, LOW);
+  
+  digitalWrite(6, HIGH);
+  delay(200);
+  digitalWrite(6, LOW);
+  
+  digitalWrite(12, HIGH);
+  delay(200);
+  digitalWrite(12, LOW);
+  
+  digitalWrite(7, HIGH);
+  delay(200);
+  digitalWrite(7, LOW);
+  } 
+}
+
+//Alternately turn on led lights in columns 1 and 2
+void LedLightShow2()
+{ 
+  int j = 0;
+  for (j = 1; j <= 10; j++) 
+  {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+    digitalWrite(5, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(7, HIGH);
+    delay(200);
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+    delay(200);
+    digitalWrite(8, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+    delay(200);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    delay(200);
+    digitalWrite(2, HIGH);
+    digitalWrite(8, HIGH);  
+    digitalWrite(4, HIGH);  
+    digitalWrite(10, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(12, HIGH);
+    delay(200);
+    digitalWrite(2, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(4, LOW); 
+    digitalWrite(10, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(12, LOW);  
+    delay(200);  
+    digitalWrite(3, HIGH);
+    digitalWrite(9, HIGH);  
+    digitalWrite(5, HIGH);  
+    digitalWrite(11, HIGH);
+    digitalWrite(7, HIGH);
+    delay(200);
+    digitalWrite(3, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(5, LOW); 
+    digitalWrite(11, LOW);
+    digitalWrite(7, LOW); 
+    delay(200); 
+   }
+}
+
+//All led lights will simultaneously blink for 20 times.
+void LedLightShow3()
+{
+  int k = 0;
+  for (k = 1; k <= 20; k++) 
+  {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+    digitalWrite(5, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(7, HIGH);
+    digitalWrite(8, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+    delay(200);
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    delay(100);
+    }
+}
+  
+void loop()
+{
+  while (Serial.available()==0){
+  }
+    
+    int userinput = Serial.parseInt();
+    switch (userinput)
+    {
+      case 1:
+      LedLightShow1();
+      break;
+      
+      case 2:
+      LedLightShow2();
+      break;
+      
+      case 3:
+      LedLightShow3();
+      break;
+      
+      default:
+      Serial.println("Selected Feature does not exist"); 
+   }
+ }

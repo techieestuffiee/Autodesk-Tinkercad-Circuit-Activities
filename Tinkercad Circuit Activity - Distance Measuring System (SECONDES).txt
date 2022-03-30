@@ -1,0 +1,78 @@
+// Ami Kristi M. Secondes BSIT 2B
+// Distance measuring device that:
+//1. turn RED LED light and Buzzer ON if distance is below 10cm;
+//2. turn Yellow LED light if distance is below 11cm-20cm
+//3. turn Green LED light if distance is more than 20cm
+//Distance information are shown in LCD screen
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(1, 2, 4, 5, 6, 7);
+int led1 =  8;
+int led2 = 9;
+int led3 = 10; 
+const int buzzer = 3;  
+const int trigPin = 11;
+const int echoPin = 12;
+long duration;
+int cm, inches;
+
+void setup() 
+{   
+  lcd.begin(16,2);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT); 
+  pinMode(buzzer, OUTPUT);  
+}
+
+void loop() 
+{ 
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(5);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  cm = duration*0.034/2;
+  inches = duration*0.0133/2;
+
+  lcd.setCursor(0,0);
+  lcd.print("Distance is ");
+  lcd.print(cm);
+  lcd.print("cm");
+  delay(10);
+  lcd.setCursor(0,1);
+  lcd.print("Distance is ");
+  lcd.print(inches);
+  lcd.print("inches");
+  delay(10);
+  
+   if (cm < 10) 
+  {
+     digitalWrite(led1, HIGH);
+     digitalWrite(led2, LOW);
+     digitalWrite(led3, LOW);
+     tone(buzzer, 1000);               
+  } 
+  
+  if (cm > 10 && cm < 20) 
+  {
+      digitalWrite(led1,LOW);
+      digitalWrite(led2, HIGH); 
+      digitalWrite(led3, LOW);
+      noTone(buzzer);
+  } 
+   
+  if (cm > 20) 
+  {
+      digitalWrite(led1,LOW);
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, HIGH); 
+      noTone(buzzer);
+  }  
+} 
+ 
